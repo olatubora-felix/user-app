@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components';
+import SearchBar from '../components/searchComponents/SearchBar';
 import User from '../components/usersComponents/User';
 import UserContext from '../context/UserContext';
 
@@ -8,17 +9,23 @@ const Home = () => {
   const { users, error, status } = context
   if (status === "loadibg") {
     return <Container>
-        <Loading>Loading</Loading>
+        <Status>Loading</Status>
+    </Container>
+  }
+  if (status === "failed") {
+    return <Container>
+        <Status>{error}</Status>
     </Container>
   }
   return (
     <Main>
       <Container>
+        <SearchBar/>
         <Grid>
           {
-            users ? users.map(user => (
+            users.length > 0  ? users.map(user => (
              <User key={user.id} user={user}/>
-            )) : <h2>{error}</h2>
+            )) : <NotFound>No Result Found</NotFound>
             }
         </Grid>
       </Container>
@@ -35,17 +42,27 @@ const Main = styled.main`
 const Container = styled.div`
   width: 70%;
   margin: 0 auto;
+  @media only  screen and (max-width: 568px) {
+   width: 90%;
+  }
 `
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  @media only  screen and (max-width: 568px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
   
 `
 
-const Loading = styled.span`
+const Status = styled.span`
   color: cyan;
+`
+const NotFound = styled.h2`
+  color: #444;
+  margin: 16px 0px;
 `
 
 

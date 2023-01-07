@@ -7,7 +7,10 @@ const UserContext = createContext({
   user: {},
   status: "idle",
   error: "",
-  getUser: () => {}
+  getUser: () => { },
+  handleChange: () => { },
+  search: "",
+  handleResult: () => {}
 });
 
 
@@ -17,13 +20,33 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({})
   const [status, setStatus] = useState("idle")
   const [error, setErorr] = useState("")
+  const [search, setSearch] = useState("")
+  const [result, setResult] = useState("")
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  }
+
+  const handleResult = (e) => {
+    e.preventDefault()
+    if (search && search.trim() !== "") {
+      setResult(search)
+      setSearch("")
+    }
+  }
+console.log(result)
+  setTimeout(() => {
+    if (result) {
+    setResult("")
+  }
+}, 5000)
 
   // Get All users
   useEffect(() => {
     const getUsers = async () => {
       setStatus("loading")
       try {
-        const {data} = await axios.get(fetchApi("users"))
+        const {data} = await axios.get(result ? fetchApi(`users/search?q=${result}`) : fetchApi("users"))
         if (data) {
           setUsers(data.users)
           setStatus("success")
@@ -31,12 +54,11 @@ export const UserContextProvider = ({ children }) => {
       } catch (error) {
         setStatus('failed')
         setErorr(error.message)
-
       }
     }
 
     getUsers()
-  }, [])
+  }, [result])
 
 
   // Get Single user
@@ -55,7 +77,7 @@ export const UserContextProvider = ({ children }) => {
    }
     
   }
-  return <UserContext.Provider value={{users, error, status, user, getUser}}>
+  return <UserContext.Provider value={{users, error, status, user, getUser, handleChange, search, handleResult}}>
       {children}
   </UserContext.Provider>;
 }
