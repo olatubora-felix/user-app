@@ -23,7 +23,7 @@ const Home = () => {
         <SearchBar/>
         <Grid>
           {
-            users.length > 0  ? users.map(user => (
+            users.length !== 0 ? users.map(user => (
              <User key={user.id} user={user}/>
             )) : <NotFound>No Result Found</NotFound>
             }
@@ -63,6 +63,9 @@ const Status = styled.span`
 const NotFound = styled.h2`
   color: #444;
   margin: 16px 0px;
+  @media only  screen and (max-width: 568px) {
+   font-size: 16px
+  }
 `
 
 
