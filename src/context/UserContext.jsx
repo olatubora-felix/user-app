@@ -44,8 +44,9 @@ console.log(result)
   // Get All users
   useEffect(() => {
     const getUsers = async () => {
-      setStatus("loading")
+      
       try {
+        setStatus("loading")
         const {data} = await axios.get(result ? fetchApi(`users/search?q=${result}`) : fetchApi("users"))
         if (data) {
           setUsers(data.users)

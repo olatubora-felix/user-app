@@ -23,11 +23,14 @@ const Home = () => {
         <SearchBar/>
         <Grid>
           {
-            users.length !== 0 ? users.map(user => (
+            users &&  users.map(user => (
              <User key={user.id} user={user}/>
-            )) : <NotFound>No Result Found</NotFound>
+            )) 
             }
         </Grid>
+        {
+          users.length < 1 && <NotFound>No Result Found</NotFound>
+        }
       </Container>
     </Main>
   )
