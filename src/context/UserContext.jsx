@@ -39,7 +39,7 @@ console.log(result)
     if (result) {
     setResult("")
   }
-}, 5000)
+}, 10000)
 
   // Get All users
   useEffect(() => {
