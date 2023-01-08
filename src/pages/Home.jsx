@@ -1,44 +1,41 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components';
 import SearchBar from '../components/searchComponents/SearchBar';
+import Status from '../components/Status';
 import User from '../components/usersComponents/User';
 import UserContext from '../context/UserContext';
 
 const Home = () => {
   const context = useContext(UserContext)
   const { users, error, status } = context
-  if (status === "loadibg") {
-    return <Container>
-        <Status>Loading</Status>
-    </Container>
+  let content;
+  if (status === "loading") {
+    return <Status text={"Loading..."}/>
   }
+
   if (status === "failed") {
-    return <Container>
-        <Status>{error}</Status>
-    </Container>
+    return content = 
+        <Status text={error}/> 
   }
   return (
     <Main>
       <Container>
-        <SearchBar/>
+        <SearchBar />
         <Grid>
           {
-            users &&  users.map(user => (
+            users.length > 0  ?  users.map(user => (
              <User key={user.id} user={user}/>
             )) 
+              : <NotFound>No Result Found</NotFound>
             }
         </Grid>
-        {
-          users.length < 1 && <NotFound>No Result Found</NotFound>
-        }
       </Container>
     </Main>
   )
 }
 
-const Main = styled.main`
+export const Main = styled.main`
   background-color: #ccc;
- 
   padding-top: 60px;
 `
 
@@ -60,9 +57,6 @@ const Grid = styled.div`
   
 `
 
-const Status = styled.span`
-  color: cyan;
-`
 const NotFound = styled.h2`
   color: #444;
   margin: 16px 0px;

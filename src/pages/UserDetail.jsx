@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import styled from 'styled-components';
 import UserInfo from '../components/UserInfo';
+import Status from '../components/Status';
 
 const UserDetail = () => {
   const { userId } = useParams()
@@ -17,9 +18,7 @@ const UserDetail = () => {
   
   switch (status) {
     case "loading":
-      return content = <Container>
-          <h4>Loading</h4>
-      </Container>
+      return content = <Status text={"loading..."}/>
     case "success": 
       return content = <UserInfo user={user}/>
     case "failed": 
