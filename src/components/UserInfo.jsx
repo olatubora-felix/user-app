@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const UserInfo = ({ user }) => {
-  console.log(user);
   const Navigate = useNavigate()
   return (
     <Section>
@@ -12,23 +11,23 @@ const UserInfo = ({ user }) => {
          <Button onClick={() => Navigate("/")}>Back</Button>
         <Wrapper>
           <Left>
-            <Image src={user.image} alt="" />
-            <Heading>Full Name: {user.firstName} {user.lastName}  </Heading>
-            <Text>Email: {user.email} </Text>
-            <Text>Phone: {user.phone} </Text>
-            <Text>Gender: {user.gender}</Text>
-            <Text>Age: {user.age}</Text>
+            <Image src={user?.image} alt="" />
+            <Heading>Full Name: {user?.firstName} {user?.lastName}  </Heading>
+            <Text>Email: {user?.email} </Text>
+            <Text>Phone: {user?.phone} </Text>
+            <Text>Gender: {user?.gender}</Text>
+            <Text>Age: {user?.age}</Text>
           </Left>
           <Right>
-            <Heading>Comapny: {user.company.name}</Heading>
-            <Text>Department: {user.company.department}</Text>
-            <Text>Position: {user.company.title}</Text>
-            <Text>Graduated from: {user.university}</Text>
-              <Text>Address: {user.address.address} </Text>
-              <Text>State: {user.address.state}</Text>
-            <Text>City: {user.address.city}</Text>
-            <Text>State Postal Code: {user.address.postalCode}</Text>
-            <Text>DOB: {user.birthDate}</Text>
+            <Heading>Comapny: {user?.company?.name}</Heading>
+            <Text>Department: {user?.company?.department}</Text>
+            <Text>Position: {user?.company?.title}</Text>
+            <Text>Graduated from: {user?.university}</Text>
+              <Text>Address: {user?.address?.address} </Text>
+              <Text>State: {user?.address?.state}</Text>
+            <Text>City: {user?.address?.city}</Text>
+            <Text>State Postal Code: {user?.address?.postalCode}</Text>
+            <Text>DOB: {user?.birthDate}</Text>
           </Right>
       </Wrapper>
       </Container>
